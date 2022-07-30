@@ -1,32 +1,86 @@
-*{
-   font-family: 'Times New Roman', Times, serif; 
-   color:black;
-   box-sizing: border-box;
+* {
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    box-sizing: border-box;
 }
 
+h1 {
+    font-size: 40px;
+}
 
+p {
+    font-size: 28px;
+}
 
-body{
+h3 {
+    font-size: 28px;
+}
+
+body {
     margin: 0;
     padding: 0;
-    
+
 }
 
 
-header{
+header {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content:space-between;
-}
-header h4{
-    color:blueviolet;
+    justify-content: space-between;
 }
 
-#Box{
+
+#Box {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.btn {
+    background-color: white;
+    font-size: 40px;
+    border: none;
+    color: blueviolet;
+}
+
+.btn:hover {
+    font-size: 40px;
+    border: none;
+    color: rgb(234, 0, 255);
+}
+
+.button {
+    display: block;
+    text-align: center;
+    background-color: rgb(134, 87, 173);
+    color: white;
+    padding: 40px;
+    margin: 5px;
+    font-size: large;
+    cursor: pointer;
+    border: 5px solid black;
+    border-radius: 8px;
+    width: 50%;
+
+
+}
+
+.button:hover {
+    background-color: #4f1494;
+    color: white;
+}
+
+.btn2 {
+    display: block;
+    text-align: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 5px;
+    font-size: x-large;
+    cursor: pointer;
+
+
 }

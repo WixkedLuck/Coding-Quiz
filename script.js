@@ -8,9 +8,13 @@ var $Answer2 = $('#Ans2');
 var $Answer3 = $('#Ans3');
 var $Answer4 = $('#Ans4');
 var $textbox = $('#input');
+var $btnScore= $('#High-Score');
+var $endBtn= $('#EndBtn');
+var $Refresh= $('#Refresh');
 var Score = 0;
-var timeLeft = 90;
+var timeLeft = 10;
 var max_chars = 3;
+
  //Hide all elements to begin 
  $Intro.hide();
  $SecondLine.hide();
@@ -19,19 +23,23 @@ var max_chars = 3;
  $Answer3.hide();
  $Answer4.hide();
  $textbox.hide();
+ $endBtn.hide();
+ $Refresh.hide();
+
 
 //Intro to Quiz 
 $Intro.show();
-$StartParagraph.text("Coding Challange Quiz");
+$StartParagraph.text("Coding Challenge Quiz");
 $Intro.text("Welcome! Try your luck at answering code-related questions within the time limit. Keep in mind with each wrong answer it will affect your overall score.")
 $StartBtn.text("Start");
 $StartParagraph.append();
 $Counter.text('Time: '+timeLeft); 
 
-
+//Timer Function
 function countdownTimer() {
    $StartBtn.hide();
-   $Intro.text('Well Done now the real fun begins')
+   $btnScore.prop('disabled', true);
+  Questions();
   
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function () {
@@ -47,32 +55,55 @@ function countdownTimer() {
         $Counter.text("");
         // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
-        // Call the `displayMessage()` function
+        endGame();
        
       }
     }, 1000);
   }
+//Function to Start Questions 
+function Questions(){
+ $Answer1.show();
+ $Answer2.show();
+ $Answer3.show();
+ $Answer4.show();
+  $Intro.text('What is the use of isNaN function?');
+ 
+  $Answer1.text('isNan function returns true if the argument is not a number; otherwise, it is false.');
+  $Answer2.text('isNan function returns false if the argument is not a number; otherwise, it is true.');
+  $Answer3.text('isNan function sets the value to UNDEFINED');
+  $Answer4.text('Idk... What is isNan?');
+ 
+}
 
 
 
 
 
-
-
-// $Intro.append(); 
-// $SecondLine.text("Enter your Intials"); 
-
+//End game enter intials and show score 
 function endGame(event) {
-    $StartParagraph.text("All Done!");
-    $StartParagraph.text("Your final Score is: " + Score);
+  $Intro.hide();
+  $StartBtn.hide();
+  $Answer1.hide();
+  $Answer2.hide();
+  $Answer3.hide();
+  $Answer4.hide();
+  $textbox.show()
+  
 
-    $('#input').keydown(function (e) {
+    $StartParagraph.text("Your final Score is: " + Score);
+    $SecondLine.text("Please enter your Intials");
+    $SecondLine.show();
+    $endBtn.text("Save");
+    $endBtn.show();
+
+
+    $textbox.keydown(function (e) {
         if ($(this).val().length >= max_chars) {
             $(this).val($(this).val().substr(0, max_chars));
         }
     });
 
-    $('#input').keyup(function (e) {
+    $textbox.keyup(function (e) {
         if ($(this).val().length >= max_chars) {
             $(this).val($(this).val().substr(0, max_chars));
         }
@@ -80,9 +111,38 @@ function endGame(event) {
 
 
 }
- $StartBtn.on('click', countdownTimer)  
+//Shows High Scores 
+function HighScores(){
+  $endBtn.hide();
+  $StartBtn.hide();
+  $Intro.hide();
+  $SecondLine.hide();
+  $textbox.hide();
+  $Refresh.show();
+  $Refresh.text("Go Back");
+  $StartParagraph.text("Coding Challenge Quiz High Scores:");
+
+ 
 
 
+}
 
 
+ $StartBtn.on('click', countdownTimer)  ;
 
+
+ $btnScore.on('click', function(event){
+  console.log('you pushed it')
+  HighScores();
+ }) ; 
+
+
+ $endBtn.on('click', function () {
+  var input2 = document.getElementById("input").value;
+
+  HighScores();
+   });
+
+   $Refresh.on('click',function(){
+    window.location.reload;
+   });

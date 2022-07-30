@@ -50,6 +50,7 @@ header {
     font-size: 40px;
     border: none;
     color: rgb(234, 0, 255);
+    cursor: grab;
 }
 
 .button {

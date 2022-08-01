@@ -11,9 +11,18 @@ var $textbox = $('#input');
 var $btnScore= $('#High-Score');
 var $endBtn= $('#EndBtn');
 var $Refresh= $('#Refresh');
+var $ClearBtn= $('#Clear');
 var Score = 0;
 var timeLeft = 10;
 var max_chars = 3;
+const NumberofHighScores=10; 
+
+
+// localStorage.setItem(High_Scores, 'Null'); 
+// const HighscoreString =localStorage.getItem(High_Scores);
+// const highScores=JSON.parse(HighscoreString) ?? [];
+// const lowestScore= highScores[NumberofHighScores-1]?.score ?? 0;
+
 
  //Hide all elements to begin 
  $Intro.hide();
@@ -25,6 +34,7 @@ var max_chars = 3;
  $textbox.hide();
  $endBtn.hide();
  $Refresh.hide();
+ $ClearBtn.hide();
 
 
 //Intro to Quiz 
@@ -34,6 +44,7 @@ $Intro.text("Welcome! Try your luck at answering code-related questions within t
 $StartBtn.text("Start");
 $StartParagraph.append();
 $Counter.text('Time: '+timeLeft); 
+
 
 //Timer Function
 function countdownTimer() {
@@ -60,6 +71,7 @@ function countdownTimer() {
       }
     }, 1000);
   }
+
 //Function to Start Questions 
 function Questions(){
  $Answer1.show();
@@ -72,14 +84,12 @@ function Questions(){
   $Answer2.text('isNan function returns false if the argument is not a number; otherwise, it is true.');
   $Answer3.text('isNan function sets the value to UNDEFINED');
   $Answer4.text('Idk... What is isNan?');
+
  
 }
 
 
-
-
-
-//End game enter intials and show score 
+//End game function enter intials and show score 
 function endGame(event) {
   $Intro.hide();
   $StartBtn.hide();
@@ -111,7 +121,8 @@ function endGame(event) {
 
 
 }
-//Shows High Scores 
+
+//Shows High Scores function
 function HighScores(){
   $endBtn.hide();
   $StartBtn.hide();
@@ -119,8 +130,16 @@ function HighScores(){
   $SecondLine.hide();
   $textbox.hide();
   $Refresh.show();
+  $ClearBtn.show();
   $Refresh.text("Go Back");
   $StartParagraph.text("Coding Challenge Quiz High Scores:");
+  
+    
+    // if (score > lowestScore) {
+    //   saveHighScore(score, highScores); // TODO
+    //   showHighScores(); // TODO
+    // }
+  
 
  
 
@@ -128,21 +147,26 @@ function HighScores(){
 }
 
 
+
+//start game
  $StartBtn.on('click', countdownTimer)  ;
 
-
+//shows highscore page 
  $btnScore.on('click', function(event){
-  console.log('you pushed it')
   HighScores();
  }) ; 
 
-
+//button for intials 
  $endBtn.on('click', function () {
-  var input2 = document.getElementById("input").value;
+ 
 
   HighScores();
    });
-
+//refresh page 
    $Refresh.on('click',function(){
     window.location.reload;
+
+   });
+   $ClearBtn.on('click',function(){
+    localStorage.clear();
    });

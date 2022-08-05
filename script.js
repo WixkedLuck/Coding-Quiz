@@ -12,8 +12,10 @@ var $btnScore= $('#High-Score');
 var $endBtn= $('#EndBtn');
 var $Refresh= $('#Refresh');
 var $ClearBtn= $('#Clear');
-var Score = 0;
-var timeLeft = 10;
+var $Choices= $('#AnswerChoice');
+var Score = timeLeft;
+var timeLeft = 1000;
+var timenow=0;
 var max_chars = 3;
 const NumberofHighScores=10; 
 
@@ -100,7 +102,7 @@ function endGame(event) {
   $textbox.show()
   
 
-    $StartParagraph.text("Your final Score is: " + Score);
+    $StartParagraph.text("Your final Score is: " + timenow);
     $SecondLine.text("Please enter your Intials");
     $SecondLine.show();
     $endBtn.text("Save");
@@ -133,19 +135,53 @@ function HighScores(){
   $ClearBtn.show();
   $Refresh.text("Go Back");
   $StartParagraph.text("Coding Challenge Quiz High Scores:");
-  
+
+
+  var StoreDate=JSON.parse(localStorage.getItem("ScoreData"))|| []
+  for(var i=0; i<StoreDate.length; i++ ){
+    var intials=StoreDate[i].userInt;
+    var score=StoreDate[i].UserScore;
+    //$('li').text=("Initials: "+intials+ " Score:"+ score);
+    $('#unordered').append($('li').text=("Initials: "+intials+ " Score:"+ score));
+
+
+  }
     
-    // if (score > lowestScore) {
-    //   saveHighScore(score, highScores); // TODO
-    //   showHighScores(); // TODO
-    // }
-  
 
  
 
 
 }
 
+function SaveHighscoress(){
+  var userInt=$textbox.val();
+  var UserScore=timenow;
+  var newScore={
+    userInt: userInt,
+    UserScore: UserScore
+  }
+  var highscoreData=JSON.parse(localStorage.getItem("ScoreData"))|| []
+  highscoreData.push(newScore);
+  console.log(userInt)
+  localStorage.setItem("ScoreData",JSON.stringify(highscoreData));
+
+}
+
+function answeredQuestion(event){
+  console.log("before: "+timeLeft);
+//console.log(event.target);
+var userChoice=event.target.innerHTML;
+if(userChoice!=='isNan function returns true if the argument is not a number; otherwise, it is false.'){
+timeLeft-=10; 
+endGame();
+console.log(timeLeft);
+timenow=timeLeft;
+}
+endGame();
+console.log(timeLeft);
+
+
+}
 
 
 //start game
@@ -160,8 +196,13 @@ function HighScores(){
  $endBtn.on('click', function () {
  
 
+
+
+SaveHighscoress();
   HighScores();
    });
+
+
 //refresh page 
    $Refresh.on('click',function(){
     window.location.reload;
@@ -170,3 +211,8 @@ function HighScores(){
    $ClearBtn.on('click',function(){
     localStorage.clear();
    });
+
+   //Answer button click 
+$Choices.on('click', answeredQuestion)
+
+//console.log(timeLeft);
